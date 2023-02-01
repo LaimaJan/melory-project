@@ -1,0 +1,95 @@
+.App {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: space-between;
+	height: 100%;
+	background: #000000;
+	position: relative;
+}
+
+.main-content {
+	background-image: url('../../images/night-gray.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	min-height: 1200px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.form {
+	background-color: var(--true-white);
+	border-radius: 5px;
+	min-width: 350px;
+	margin: 20px auto;
+	padding: 40px;
+}
+
+.paragraph {
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.form-body {
+	padding: 20px 40px;
+}
+
+.form-body > * {
+	padding: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.form-body input {
+	font-size: 19px;
+}
+
+.form__label {
+	font-size: 22px;
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+}
+
+.form__input {
+	padding: 5px 60px;
+}
+
+.submit-container {
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.btn {
+	padding: 10px 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #758fc0;
+	color: var(--true-white);
+	font-weight: 600;
+}
+
+.signIn-container {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 17px;
+	font-weight: 600;
+}
+
+.signIn-link {
+	margin-left: 5px;
+	color: rgb(94, 94, 210);
+}
+
+.signIn-link:hover {
+	color: var(--black);
+}

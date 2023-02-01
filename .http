@@ -1,0 +1,37 @@
+
+                        <!-- LOCALHOST 5002-->
+### signup
+POST http://localhost:5002/users/signup
+Content-Type: application/json
+
+{
+    "name": "Laima",
+    "surname": "Januskiene",
+    "email": "kazkas@email.com",
+    "password": "laima"
+}
+
+### login
+POST http://localhost:5002/users/login
+content-type: application/json
+
+{
+    "email": "laima@email.com",
+    "password": "laima"
+}
+
+### 
+GET http://localhost:5002/users/636bd1b3c549b4c28a8689cb
+
+
+### create/add movie
+POST http://localhost:5002/movies
+content-type: application/json
+
+{
+    "userId": "636bd1b3c549b4c28a8689cb",
+    "movie_name": "Spiderman 2", 
+    "movie_category": "Action",
+    "movie_rent_price": "10.00",
+    "is_available": true
+}
