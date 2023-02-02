@@ -1,21 +1,25 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { FormProvider } from './context/AuthContext';
+import { FormProvider } from './context/AuthContext';
+
+import Home from './pages/Home/Home';
 import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
+import MyPage from './pages/MyPage/MyPage';
 
 function App() {
 	return (
-		// <FormProvider>
-		<BrowserRouter>
-			<Routes>
-				{/* <Route path="/" element={<Home />} /> */}
-				<Route path="/users/signup" element={<SignUp />} />
-				<Route path="/users/signin" element={<SignIn />} />
+		<FormProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/users/signup" element={<SignUp />} />
+					<Route path="/users/signin" element={<SignIn />} />
+					<Route path="/users/MyPage" element={<MyPage />} />
 
-				<Route path="*" element={<p>Theres's no page, go back!</p>} />
-			</Routes>
-		</BrowserRouter>
-		// </FormProvider>
+					<Route path="*" element={<p>Theres's no page, go back!</p>} />
+				</Routes>
+			</BrowserRouter>
+		</FormProvider>
 	);
 }
 

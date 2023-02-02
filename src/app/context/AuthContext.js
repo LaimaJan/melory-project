@@ -1,5 +1,4 @@
 import { useState, createContext } from 'react';
-
 import { API_URL } from '../../scripts/modules/constants';
 
 const AuthContext = createContext();
@@ -37,8 +36,20 @@ const FormProvider = ({ children }) => {
 		}
 	};
 
+	const handleSubmit = () => {
+		console.log(firstName, lastName, email, password, confirmPassword);
+	};
+
 	const signUpUser = async (e) => {
 		e.preventDefault();
+
+		if (user.password === '') alert('Please enter Password');
+		else if (user.confirmPassword === '')
+			alert('Please enter confirm password');
+		// else if (user.password !== user.confirmPassword) {
+		// 	alert('\nPassword did not match: Please try again...');
+		// 	return false;
+		// }
 
 		try {
 			const data = await (
@@ -53,9 +64,43 @@ const FormProvider = ({ children }) => {
 
 			if (data.message === 'User created') {
 				localStorage.setItem('user', data.user._id);
-				console.log('USERIS SUKURTAS');
-				// location.href =
-				// 	'http://127.0.0.1:5500/nodejs_13_16_paskaita/frontend/pages/my-account.html';
+				console.log('USER CREATED');
+				window.location.replace = 'http://localhost:5002/users/signin';
+			} else {
+				alert(data.message);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const loginUser = async (e) => {
+		e.preventDefault();
+
+		const user = {
+			email: email,
+			password: password,
+		};
+
+		if (!user.email || !user.password) {
+			alert('Please provide needed information');
+			return;
+		}
+
+		try {
+			const data = await (
+				await fetch(API_URL + '/users/login', {
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json',
+					},
+					body: JSON.stringify(user),
+				})
+			).json();
+
+			if (data.message === 'User found') {
+				localStorage.setItem('user', data.user._id);
+				console.log('USER FOUND');
 			} else {
 				alert(data.message);
 			}
@@ -74,6 +119,8 @@ const FormProvider = ({ children }) => {
 				email,
 				password,
 				confirmPassword,
+				handleSubmit,
+				loginUser,
 			}}
 		>
 			{children}

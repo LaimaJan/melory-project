@@ -1,54 +1,22 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 import './SignUp.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import { API_URL } from '../../../scripts/modules/constants';
 
 function SignUp() {
-	const navigate = useNavigate();
-
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [confirmPassword, setConfirmPassword] = useState('');
-
-	const user = {
-		name: firstName,
-		surname: lastName,
-		email: email,
-		password: password,
-	};
-
-	console.log('USER TRYING TO REGISTER', user);
-
-	const signUpUser = async (e) => {
-		e.preventDefault();
-
-		try {
-			const data = await (
-				await fetch(API_URL + '/users/signup', {
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json',
-					},
-					body: JSON.stringify(user),
-				})
-			).json();
-
-			if (data.message === 'User created') {
-				localStorage.setItem('user', data.user._id);
-				console.log('USERIS SUKURTAS');
-				navigate(`/users/signin`);
-			} else {
-				alert(data.message);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	const {
+		signUpUser,
+		handleInputChange,
+		firstName,
+		lastName,
+		email,
+		password,
+		confirmPassword,
+		handleSubmit,
+	} = useContext(AuthContext);
 
 	return (
 		<div className="App">
@@ -67,7 +35,7 @@ function SignUp() {
 								type="text"
 								id="firstName"
 								value={firstName}
-								onChange={(e) => setFirstName(e.target.value)}
+								onChange={(e) => handleInputChange(e)}
 							/>
 						</div>
 						<div className="lastname">
@@ -80,7 +48,7 @@ function SignUp() {
 								id="lastName"
 								className="form__input"
 								value={lastName}
-								onChange={(e) => setLastName(e.target.value)}
+								onChange={(e) => handleInputChange(e)}
 							/>
 						</div>
 						<div className="email">
@@ -92,7 +60,7 @@ function SignUp() {
 								id="email"
 								className="form__input"
 								value={email}
-								onChange={(e) => setEmail(e.target.value)}
+								onChange={(e) => handleInputChange(e)}
 							/>
 						</div>
 						<div className="password">
@@ -104,7 +72,7 @@ function SignUp() {
 								type="password"
 								id="password"
 								value={password}
-								onChange={(e) => setPassword(e.target.value)}
+								onChange={(e) => handleInputChange(e)}
 							/>
 						</div>
 						<div className="confirm-password">
@@ -116,7 +84,7 @@ function SignUp() {
 								type="password"
 								id="confirmPassword"
 								value={confirmPassword}
-								onChange={(e) => setConfirmPassword(e.target.value)}
+								onChange={(e) => handleInputChange(e)}
 							/>
 						</div>
 					</div>
@@ -124,7 +92,7 @@ function SignUp() {
 						<button
 							type="submit"
 							className="register btn"
-							// onClick={() => handleSubmit()}
+							onClick={() => handleSubmit()}
 						>
 							Register
 						</button>
