@@ -8,8 +8,7 @@ footer {
 .footer-content {
 	background-color: var(--black);
 	margin: 0 auto;
-	padding-top: 30px;
-	padding-bottom: 30px;
+	height: 70px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;

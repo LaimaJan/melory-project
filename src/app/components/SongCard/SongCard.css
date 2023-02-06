@@ -1,13 +1,13 @@
 .song-card {
 	width: 100%;
 	margin: 0 auto;
-	background-color: blanchedalmond;
+	background-color: #a5a4af;
 
 	padding: 10px 20px;
 }
 
 .song-card-content {
-	background-color: cadetblue;
+	background-color: #dfdfe1;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
@@ -15,7 +15,7 @@
 
 .song-card-img-container {
 	width: 20%;
-	background-color: aliceblue;
+	background-color: rgb(24, 25, 26);
 }
 
 .song-card-text {

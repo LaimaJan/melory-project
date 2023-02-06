@@ -5,6 +5,7 @@
 	text-align: center;
 	min-width: 600px;
 	background-color: var(--true-black);
+	min-height: 100vh;
 }
 
 main {
@@ -16,11 +17,11 @@ main {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	min-height: 1200px;
 
-	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	flex: auto;
 }
 
 .card {

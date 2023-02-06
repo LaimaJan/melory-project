@@ -15,6 +15,7 @@ const FormProvider = ({ children }) => {
 		surname: lastName,
 		email: email,
 		password: password,
+		confirmPassword: confirmPassword,
 	};
 
 	const handleInputChange = (e) => {
@@ -46,10 +47,11 @@ const FormProvider = ({ children }) => {
 		if (user.password === '') alert('Please enter Password');
 		else if (user.confirmPassword === '')
 			alert('Please enter confirm password');
-		// else if (user.password !== user.confirmPassword) {
-		// 	alert('\nPassword did not match: Please try again...');
-		// 	return false;
-		// }
+		else if (user.password !== user.confirmPassword) {
+			console.log(user.password, user.confirmPassword);
+			alert('\nPassword did not match: Please try again...');
+			return false;
+		}
 
 		try {
 			const data = await (
@@ -65,7 +67,6 @@ const FormProvider = ({ children }) => {
 			if (data.message === 'User created') {
 				localStorage.setItem('user', data.user._id);
 				console.log('USER CREATED');
-				window.location.replace = 'http://localhost:5002/users/signin';
 			} else {
 				alert(data.message);
 			}
@@ -108,6 +109,11 @@ const FormProvider = ({ children }) => {
 			console.log(error);
 		}
 	};
+
+	// const logOut = () => {
+	// 	console.log('logOut triggered');
+
+	// };
 
 	return (
 		<AuthContext.Provider

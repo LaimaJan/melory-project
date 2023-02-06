@@ -1,8 +1,7 @@
 header {
 	margin: 0;
 	background-color: var(--black);
-	padding-top: 30px;
-	padding-bottom: 30px;
+	height: 70px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
