@@ -45,7 +45,9 @@ function SignIn() {
 					</div>
 					<div className="submit-container">
 						<button type="submit" className="register btn">
-							<Link to="/users/MyPage">Sign In</Link>
+							{/* <Link to="/users/MyPage"> */}
+							Sign In
+							{/* </Link> */}
 						</button>
 					</div>
 					<div className="signIn-container">

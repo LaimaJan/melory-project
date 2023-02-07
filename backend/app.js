@@ -1,11 +1,16 @@
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const cors = require('cors');
-// const bodyParser = require('body-parser');
-require('dotenv').config();
+const auth = require('./middleware/auth');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
+// const bodyParser = require('body-parser');
+
+require('dotenv').config();
+require('./config/database').connect();
 const app = express();
-const PORT = process.env.PORT;
+// const PORT = process.env.API_PORT;
 
 // const fs = require('fs');
 // const path = require('path');
@@ -16,6 +21,7 @@ const User = require('./models/user.model.js');
 app.use(cors());
 app.use(express.json());
 
+module.exports = app;
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
@@ -37,56 +43,88 @@ app.use(express.json());
 
 // var imgModel = require('./models/user.model');
 
-mongoose.set('strictQuery', true);
-
-// Connection to DB
-mongoose
-	.connect(process.env.MONGODB_URI)
-	.then(() => {
-		console.log('Connected to MongoDB');
-
-		app.listen(PORT, () => console.log('Server running on port:' + PORT));
-	})
-	.catch((e) => console.log(e));
-
 // Routes
 app.post('/users/signup', async (req, res) => {
-	const newUserData = req.body;
+	// console.log('VEIKIA');
+	const { name, surname, email, password } = req.body;
+	console.log(req.body);
 
 	try {
-		const doesUserExist = await User.findOne({ email: newUserData.email });
+		console.log('name', name, 'surname', surname);
 
-		if (!doesUserExist) {
-			const newUser = new User(newUserData);
-
-			const createdUser = await newUser.save();
-
-			res.json({
-				message: 'User created',
-				user: createdUser,
-			});
-		} else {
-			res.json({ message: 'User with given email already exists' });
+		if (!(email && password && name && surname)) {
+			res.status(400).send('All input is required');
 		}
-	} catch (error) {
-		console.log(error);
+
+		const oldUser = await User.findOne({ email });
+
+		if (oldUser) {
+			return res.status(409).send('User Already Exist. Please Login');
+		}
+
+		const encryptedPassword = await bcrypt.hash(password, 10);
+
+		const user = await User.create({
+			name,
+			surname,
+			email: email.toLowerCase(),
+			password: encryptedPassword,
+		});
+
+		// Create token
+		const token = jwt.sign(
+			{ user_id: user._id, email },
+			process.env.TOKEN_KEY,
+			{
+				expiresIn: '2h',
+			}
+		);
+		// save user token
+		user.token = token;
+
+		res.status(201).json({
+			message: 'User created',
+			user,
+		});
+	} catch (err) {
+		console.log(err);
 	}
 });
 
-app.post('/users/login', async (req, res) => {
-	const userData = req.body;
-
+app.post('/users/signin', async (req, res) => {
 	try {
-		const user = await User.findOne(userData);
+		const { email, password } = req.body;
 
-		if (user) {
-			res.json({ message: 'User found', user });
-		} else {
-			res.json({ message: 'User with given email and password not found' });
+		if (!(email && password)) {
+			res.status(400).send('All input is required');
 		}
-	} catch (error) {
-		console.log(error);
+
+		const user = await User.findOne({ email });
+
+		if (user && (await bcrypt.compare(password, user.password))) {
+			// Create token
+			const token = jwt.sign(
+				{ user_id: user._id, email },
+				process.env.TOKEN_KEY,
+				{
+					expiresIn: '2h',
+				}
+			);
+
+			// save user token
+			user.token = token;
+
+			res.status(200).json({ message: 'User founded', user });
+		} else {
+			res.status(400).send('Invalid Credentials');
+		}
+	} catch (err) {
+		console.log(err);
 	}
+});
+
+app.post('/users/MyPage', auth, (req, res) => {
+	res.status(200).send('Welcome 🙌 ');
 });
 
 // app.get('/', (req, res) => {

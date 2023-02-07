@@ -90,7 +90,7 @@ const FormProvider = ({ children }) => {
 
 		try {
 			const data = await (
-				await fetch(API_URL + '/users/login', {
+				await fetch(API_URL + '/users/signin', {
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',

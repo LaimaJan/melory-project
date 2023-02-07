@@ -94,7 +94,9 @@ function SignUp() {
 							className="register btn"
 							onClick={() => handleSubmit()}
 						>
-							<Link to="/users/signin">Register</Link>
+							{/* <Link to="/users/signin"> */}
+							Register
+							{/* </Link> */}
 						</button>
 					</div>
 					<div className="signIn-container">
