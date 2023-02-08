@@ -1,9 +1,36 @@
 import './CreateMemory.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CreateMemoryContext } from '../../context/CreateMemoryContext';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 function CreateMemory() {
+	const navigate = useNavigate();
+	const { createMemory, handleInputChange } = useContext(CreateMemoryContext);
+	const { logOut } = useContext(AuthContext);
+
+	const logginOut = () => {
+		let letLogOut = logOut();
+
+		if (letLogOut) {
+			navigate('/');
+		}
+	};
+
+	const handleClick = async (e) => {
+		let memoryCreated = await createMemory(e);
+
+		if (memoryCreated.success) {
+			navigate('/users/MyPage');
+		} else {
+			alert(memoryCreated.error);
+		}
+	};
+
 	return (
 		<div className="App-content">
 			<Header>
@@ -14,7 +41,9 @@ function CreateMemory() {
 						</p>
 					</div>
 					<div className="logOut-container">
-						<button className="logOut-btn btn">Log Out</button>
+						<button className="logOut-btn btn" onClick={logginOut}>
+							Log Out
+						</button>
 					</div>
 				</div>
 			</Header>
@@ -27,24 +56,47 @@ function CreateMemory() {
 						<div className="create-memory-content">
 							<div className="add-song-url">
 								<label htmlFor="url">Add URL</label>
-								<input type="url"></input>
+								<input
+									type="url"
+									id="song-url"
+									onChange={(e) => handleInputChange(e)}
+								/>
+							</div>
+							<div className="add-memory-title">
+								<label htmlFor="title">Add title</label>
+								<input
+									type="text"
+									id="memory-title"
+									onChange={(e) => handleInputChange(e)}
+								/>
 							</div>
 							<div className="add-memory-keywords">
 								<label htmlFor="keywords">Memory keywords</label>
-								<input type="text"></input>
+								<input
+									type="text"
+									id="memory-keywords"
+									onChange={(e) => handleInputChange(e)}
+								/>
 							</div>
 							<div className="add-memory-description">
 								<label htmlFor="description">Memory description</label>
-								<textarea></textarea>
+								<textarea
+									id="memory-description"
+									onChange={(e) => handleInputChange(e)}
+								/>
 							</div>
 							<div className="add-memory-photos">
 								<label htmlFor="photos">Photos</label>
-								<input type="file"></input>
+								<input
+									type="file"
+									id="memory-photos"
+									onChange={(e) => handleInputChange(e)}
+								/>
 							</div>
 						</div>
 						<div className="submit-container">
-							<button type="submit">
-								<Link to="/users/MyPage">Create Memory</Link>
+							<button type="submit" onClick={handleClick}>
+								Create Memory
 							</button>
 						</div>
 					</form>

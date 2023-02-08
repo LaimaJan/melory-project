@@ -5,10 +5,10 @@ POST http://localhost:5002/users/signup
 Content-Type: application/json
 
 {
-    "name": "Laima",
-    "surname": "Januskiene",
-    "email": "kazkas@email.com",
-    "password": "laima"
+    "name": "Pirmas",
+    "surname": "Pirmas",
+    "email": "pirmas@email.com",
+    "password": "pirmas"
 }
 
 ### login
@@ -16,22 +16,39 @@ POST http://localhost:5002/users/signin
 content-type: application/json
 
 {
-    "email": "kazkas@email.com",
-    "password": "laima"
+    "email": "pirmas@email.com",
+    "password": "pirmas"
 }
 
-### 
-GET http://localhost:5002/users/636bd1b3c549b4c28a8689cb
-
-
-### create/add movie
-POST http://localhost:5002/movies
+### create memory
+POST http://localhost:5002/users/CreateMemory
 content-type: application/json
 
 {
-    "userId": "636bd1b3c549b4c28a8689cb",
-    "movie_name": "Spiderman 2", 
-    "movie_category": "Action",
-    "movie_rent_price": "10.00",
-    "is_available": true
+    "song_url": "trecias",
+    "memories_title": "laima", 
+    "memories_description": "something",
+    "images": "",
+    "memory_keywords": "", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlM2JmMmMyNzg5NTVhYmUzYmFjMDFlIiwiZW1haWwiOiJwaXJtYXNAZW1haWwuY29tIiwiaWF0IjoxNjc1ODczNjg1LCJleHAiOjE2NzU4ODA4ODV9.JS68A63ozBUocJu3i84VQGkDiEc2M0J7vMoJlWgszOM"
+}
+
+
+### get users song memory cards
+GET http://localhost:5002/users/MyPage
+content-type: application/json
+
+{
+   
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlM2JmMmMyNzg5NTVhYmUzYmFjMDFlIiwiZW1haWwiOiJwaXJtYXNAZW1haWwuY29tIiwiaWF0IjoxNjc1ODczNjg1LCJleHAiOjE2NzU4ODA4ODV9.JS68A63ozBUocJu3i84VQGkDiEc2M0J7vMoJlWgszOM"
+}
+
+
+### delete memory card
+POST http://localhost:5002/users/delete
+content-type: application/json
+
+{
+   
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlM2JmMmMyNzg5NTVhYmUzYmFjMDFlIiwiZW1haWwiOiJwaXJtYXNAZW1haWwuY29tIiwiaWF0IjoxNjc1ODczNjg1LCJleHAiOjE2NzU4ODA4ODV9.JS68A63ozBUocJu3i84VQGkDiEc2M0J7vMoJlWgszOM"
 }

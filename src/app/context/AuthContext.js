@@ -37,46 +37,60 @@ const FormProvider = ({ children }) => {
 		}
 	};
 
-	const handleSubmit = () => {
-		console.log(firstName, lastName, email, password, confirmPassword);
-	};
-
 	const signUpUser = async (e) => {
 		e.preventDefault();
 
-		if (user.password === '') alert('Please enter Password');
-		else if (user.confirmPassword === '')
-			alert('Please enter confirm password');
-		else if (user.password !== user.confirmPassword) {
-			console.log(user.password, user.confirmPassword);
-			alert('\nPassword did not match: Please try again...');
-			return false;
+		let response = {
+			success: true,
+			error: null,
+		};
+
+		if (user.password === '') {
+			response.success = false;
+			response.error = 'Please enter password';
+		} else if (user.confirmPassword === '') {
+			response.success = false;
+			response.error = 'Please enter confirm password';
+		} else if (user.password !== user.confirmPassword) {
+			response.success = false;
+			response.error = '\nPassword did not match: Please try again...';
 		}
 
-		try {
-			const data = await (
-				await fetch(API_URL + '/users/signup', {
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json',
-					},
-					body: JSON.stringify(user),
-				})
-			).json();
+		if (response.error === null) {
+			try {
+				const data = await (
+					await fetch(API_URL + '/users/signup', {
+						method: 'POST',
+						headers: {
+							'Content-type': 'application/json',
+						},
+						body: JSON.stringify(user),
+					})
+				).json();
 
-			if (data.message === 'User created') {
-				localStorage.setItem('user', data.user._id);
-				console.log('USER CREATED');
-			} else {
-				alert(data.message);
+				if (data.message === 'User created') {
+					localStorage.setItem('user', data.user._id);
+					response.success = true;
+					response.error = 'User is created';
+				} else if (data.message === 'This email is alread in use') {
+					response.success = false;
+					response.error = 'This email is already in use';
+				}
+			} catch (error) {
+				console.log(error);
 			}
-		} catch (error) {
-			console.log(error);
 		}
+
+		return response;
 	};
 
 	const loginUser = async (e) => {
 		e.preventDefault();
+
+		let response = {
+			success: true,
+			error: null,
+		};
 
 		const user = {
 			email: email,
@@ -84,36 +98,49 @@ const FormProvider = ({ children }) => {
 		};
 
 		if (!user.email || !user.password) {
-			alert('Please provide needed information');
-			return;
+			response.success = false;
+			response.error = 'Please provide needed information';
 		}
 
-		try {
-			const data = await (
-				await fetch(API_URL + '/users/signin', {
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json',
-					},
-					body: JSON.stringify(user),
-				})
-			).json();
+		if (response.error === null) {
+			try {
+				const data = await (
+					await fetch(API_URL + '/users/signin', {
+						method: 'POST',
+						headers: {
+							'Content-type': 'application/json',
+						},
+						body: JSON.stringify(user),
+					})
+				).json();
 
-			if (data.message === 'User found') {
-				localStorage.setItem('user', data.user._id);
-				console.log('USER FOUND');
-			} else {
-				alert(data.message);
+				if (data.message === 'User found') {
+					localStorage.setItem('user', data.user._id);
+					localStorage.setItem('token', data.user.token);
+
+					response.success = true;
+					response.error = 'User found';
+				} else if (data.message === 'No account with this email') {
+					response.success = false;
+					response.error =
+						'\nNo account is registered with this email, please register...';
+				}
+			} catch (error) {
+				console.log(error);
 			}
-		} catch (error) {
-			console.log(error);
 		}
+
+		return response;
 	};
 
-	// const logOut = () => {
-	// 	console.log('logOut triggered');
+	const logOut = () => {
+		console.log('logOut triggered');
 
-	// };
+		localStorage.removeItem('user');
+		localStorage.removeItem('token');
+
+		return true;
+	};
 
 	return (
 		<AuthContext.Provider
@@ -125,8 +152,8 @@ const FormProvider = ({ children }) => {
 				email,
 				password,
 				confirmPassword,
-				handleSubmit,
 				loginUser,
+				logOut,
 			}}
 		>
 			{children}

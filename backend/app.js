@@ -1,47 +1,22 @@
 const express = require('express');
-// const mongoose = require('mongoose');
+
 const cors = require('cors');
 const auth = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// const bodyParser = require('body-parser');
-
 require('dotenv').config();
 require('./config/database').connect();
 const app = express();
-// const PORT = process.env.API_PORT;
-
-// const fs = require('fs');
-// const path = require('path');
 
 const User = require('./models/user.model.js');
+const Song = require('./models/song.model.js');
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
 module.exports = app;
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-
-// Set EJS as templating engine
-// app.set('view engine', 'ejs');
-
-// var multer = require('multer');
-
-// var storage = multer.diskStorage({
-// 	destination: (_req, _file, cb) => {
-// 		cb(null, 'uploads');
-// 	},
-// 	filename: (_req, file, cb) => {
-// 		cb(null, file.fieldname + '-' + Date.now());
-// 	},
-// });
-
-// var upload = multer({ storage: storage });
-
-// var imgModel = require('./models/user.model');
 
 // Routes
 app.post('/users/signup', async (req, res) => {
@@ -53,13 +28,19 @@ app.post('/users/signup', async (req, res) => {
 		console.log('name', name, 'surname', surname);
 
 		if (!(email && password && name && surname)) {
-			res.status(400).send('All input is required');
+			res.status(400).json({
+				success: false,
+				message: 'All input is required',
+			});
 		}
 
 		const oldUser = await User.findOne({ email });
 
 		if (oldUser) {
-			return res.status(409).send('User Already Exist. Please Login');
+			return res.status(409).json({
+				success: false,
+				message: 'This email is alread in use',
+			});
 		}
 
 		const encryptedPassword = await bcrypt.hash(password, 10);
@@ -83,6 +64,7 @@ app.post('/users/signup', async (req, res) => {
 		user.token = token;
 
 		res.status(201).json({
+			success: true,
 			message: 'User created',
 			user,
 		});
@@ -96,10 +78,20 @@ app.post('/users/signin', async (req, res) => {
 		const { email, password } = req.body;
 
 		if (!(email && password)) {
-			res.status(400).send('All input is required');
+			res.status(400).json({
+				success: false,
+				message: 'All input is required',
+			});
 		}
 
 		const user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(409).json({
+				success: false,
+				message: 'No account with this email',
+			});
+		}
 
 		if (user && (await bcrypt.compare(password, user.password))) {
 			// Create token
@@ -114,48 +106,80 @@ app.post('/users/signin', async (req, res) => {
 			// save user token
 			user.token = token;
 
-			res.status(200).json({ message: 'User founded', user });
+			res.status(200).json({ message: 'User found', user });
 		} else {
-			res.status(400).send('Invalid Credentials');
+			res.status(400).json({
+				success: false,
+				message: 'Invalid Credentials',
+				token: user.token,
+			});
 		}
 	} catch (err) {
 		console.log(err);
 	}
 });
 
-app.post('/users/MyPage', auth, (req, res) => {
-	res.status(200).send('Welcome 🙌 ');
+app.post('/users/CreateMemory', auth, async (req, res) => {
+	const user = req.user;
+
+	const { user_id } = user;
+	// console.log('usersID:   ', user_id);
+
+	const {
+		song_url,
+		memories_title,
+		memories_description,
+		images,
+		memory_keywords,
+	} = req.body;
+
+	// const memories = await Song.find({
+	// 	user_id: user_id,
+	// });
+
+	// console.log('memories: ', memories);
+
+	try {
+		// const oldSong = await Song.findOne({ song_url });
+
+		// if (memories.song_url === oldSong) {
+		// 	return res.status(409).json({
+		// 		success: false,
+		// 		message: 'You have already created a memory with this song...',
+		// 	});
+		// }
+
+		const song = await Song.create({
+			user_id: user_id,
+			song_url,
+			memories_title,
+			memories_description,
+			images,
+			memory_keywords,
+		});
+
+		res.status(201).json({ message: 'Created a memory', song });
+	} catch (err) {
+		console.log(err);
+	}
 });
 
-// app.get('/', (req, res) => {
-// 	imgModel.find({}, (err, items) => {
-// 		if (err) {
-// 			console.log(err);
-// 			res.status(500).send('An error occurred', err);
-// 		} else {
-// 			res.render('imagesPage', { items: items });
-// 		}
-// 	});
-// });
+app.get('/users/MyPage', auth, async (req, res) => {
+	const user = req.user;
+	const { user_id } = user;
 
-// app.post('/users/signup', upload.single('image'), (req, res, next) => {
-// 	var obj = {
-// 		name: req.body.name,
-// 		desc: req.body.desc,
-// 		img: {
-// 			data: fs.readFileSync(
-// 				path.join(__dirname + '/uploads/' + req.file.filename)
-// 			),
-// 			contentType: 'image/png',
-// 		},
-// 	};
+	try {
+		const memories = await Song.find({
+			user_id: user_id,
+		});
 
-// 	imgModel.create(obj, (err, item) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			// item.save();
-// 			res.redirect('/');
-// 		}
-// 	});
-// });
+		res.json(memories);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+app.post('/users/delete', auth, async (req, res) => {
+	const user = req.user;
+	const { user_id } = user;
+});

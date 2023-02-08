@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const songSchema = mongoose.Schema({
+	user_id: {
+		type: String,
+		required: false,
+	},
 	song_url: {
 		type: String,
 		required: false,
@@ -13,15 +17,15 @@ const songSchema = mongoose.Schema({
 		type: String,
 		required: false,
 	},
-	// images: {
-	// 	data: Buffer,
-	// 	contentType: String,
-	// 	required: false,
-	// },
-	// memory_keywords: {
-	// 	type: [String],
-	// 	required: false,
-	// },
+	images: {
+		data: Buffer,
+		contentType: String,
+		required: false,
+	},
+	memory_keywords: {
+		type: [String],
+		required: false,
+	},
 });
 
 const Song = mongoose.model('song', songSchema);

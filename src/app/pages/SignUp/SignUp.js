@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 import './SignUp.css';
 import Footer from '../../components/Footer';
@@ -15,15 +16,26 @@ function SignUp() {
 		email,
 		password,
 		confirmPassword,
-		handleSubmit,
 	} = useContext(AuthContext);
+
+	const navigate = useNavigate();
+
+	const handleClick = async (e) => {
+		let signedUp = await signUpUser(e);
+
+		if (signedUp.success) {
+			navigate('/users/signin');
+		} else {
+			alert(signedUp.error);
+		}
+	};
 
 	return (
 		<div className="App">
 			<Header />
 
 			<main className="main-content">
-				<form className="form" onSubmit={signUpUser}>
+				<form className="form">
 					<p className="paragraph">Registration</p>
 					<div className="form-body">
 						<div className="username">
@@ -92,11 +104,9 @@ function SignUp() {
 						<button
 							type="submit"
 							className="register btn"
-							onClick={() => handleSubmit()}
+							onClick={handleClick}
 						>
-							{/* <Link to="/users/signin"> */}
 							Register
-							{/* </Link> */}
 						</button>
 					</div>
 					<div className="signIn-container">

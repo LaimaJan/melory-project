@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 import './SignIn.css';
 import Footer from '../../components/Footer';
@@ -9,6 +10,18 @@ import Header from '../../components/Header';
 function SignIn() {
 	const { loginUser, email, password, handleInputChange } =
 		useContext(AuthContext);
+
+	const navigate = useNavigate();
+
+	const handleClick = async (e) => {
+		let signedUp = await loginUser(e);
+
+		if (signedUp.success) {
+			navigate('/users/MyPage');
+		} else {
+			alert(signedUp.error);
+		}
+	};
 
 	return (
 		<div className="App">
@@ -44,10 +57,8 @@ function SignIn() {
 						</div>
 					</div>
 					<div className="submit-container">
-						<button type="submit" className="register btn">
-							{/* <Link to="/users/MyPage"> */}
+						<button type="submit" className="login btn" onClick={handleClick}>
 							Sign In
-							{/* </Link> */}
 						</button>
 					</div>
 					<div className="signIn-container">
