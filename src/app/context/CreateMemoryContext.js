@@ -11,6 +11,7 @@ const MemoryProvider = ({ children }) => {
 	const [description, setDescription] = useState('');
 	const [photos, setPhotos] = useState('');
 	const [songMemories, setSongMemories] = useState([]);
+	const [deleteMemoryId, setDeleteMemoryId] = useState('');
 
 	const songMemory = {
 		song_url: songUrl,
@@ -18,6 +19,10 @@ const MemoryProvider = ({ children }) => {
 		memory_keywords: keywords,
 		memories_description: description,
 		images: photos,
+	};
+
+	const memoryToDelete = {
+		_id: deleteMemoryId,
 	};
 
 	const handleInputChange = (e) => {
@@ -86,7 +91,7 @@ const MemoryProvider = ({ children }) => {
 		return response;
 	};
 
-	const getMemories = async (e) => {
+	const getMemories = async () => {
 		const token = localStorage.getItem('token');
 		console.log('tokenas: ', token);
 
@@ -110,6 +115,48 @@ const MemoryProvider = ({ children }) => {
 		}
 	};
 
+	// const singleCardClicked = (id) => {
+	// 	setDeleteMemoryId(id);
+	// };
+
+	const deleteMemory = async (id) => {
+		setDeleteMemoryId(id);
+		console.log('deleteMemoryId: ', memoryToDelete);
+
+		const token = localStorage.getItem('token');
+		console.log('tokenas: ', token);
+
+		let response = {
+			success: true,
+			error: null,
+		};
+
+		try {
+			const data = await (
+				await fetch(API_URL + '/users/delete', {
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json',
+						'x-access-token': token,
+					},
+					body: JSON.stringify(memoryToDelete),
+				})
+			).json();
+
+			if (data.message === 'Info about memory is deleted') {
+				response.success = true;
+				response.error = 'Info about memory is deleted';
+			}
+			console.log(data);
+
+			window.location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+
+		return response;
+	};
+
 	return (
 		<CreateMemoryContext.Provider
 			value={{
@@ -117,6 +164,8 @@ const MemoryProvider = ({ children }) => {
 				handleInputChange,
 				getMemories,
 				songMemories,
+				deleteMemory,
+				// singleCardClicked,
 			}}
 		>
 			{children}

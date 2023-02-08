@@ -13,7 +13,12 @@ import { CreateMemoryContext } from '../../context/CreateMemoryContext';
 function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
-	const { getMemories, songMemories } = useContext(CreateMemoryContext);
+	const {
+		getMemories,
+		songMemories,
+		//  singleCardClicked,
+		deleteMemory,
+	} = useContext(CreateMemoryContext);
 
 	const handleClick = () => {
 		let letLogOut = logOut();
@@ -21,10 +26,6 @@ function MyPage() {
 		if (letLogOut) {
 			navigate('/');
 		}
-	};
-
-	const singleCardClicked = (id) => {
-		console.log('Paklikintas buttonas, dainos korteles id ' + id);
 	};
 
 	useEffect(() => {
@@ -75,7 +76,7 @@ function MyPage() {
 								memoryTitle={memories_title}
 								memoryDescription={memories_description}
 								keywords={memory_keywords}
-								singleCard={() => singleCardClicked(_id)}
+								singleCard={() => deleteMemory(_id)}
 							/>
 						)
 					)}

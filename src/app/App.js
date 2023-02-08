@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
 import MyPage from './pages/MyPage/MyPage';
 import CreateMemory from './pages/CreateMemory/CreateMemory';
+import SingleMemory from './pages/SingleMemory/SingleMemory';
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 						<Route path="/users/signin" element={<SignIn />} />
 						<Route path="/users/MyPage" element={<MyPage />} />
 						<Route path="/users/CreateMemory" element={<CreateMemory />} />
+						<Route path="/users/SingleMemory" element={<SingleMemory />} />
 
 						<Route path="*" element={<p>Theres's no page, go back!</p>} />
 					</Routes>

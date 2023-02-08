@@ -7,7 +7,7 @@ Content-Type: application/json
 {
     "name": "Pirmas",
     "surname": "Pirmas",
-    "email": "pirmas@email.com",
+    "email": "pirmas@gmail.com",
     "password": "pirmas"
 }
 
@@ -16,7 +16,7 @@ POST http://localhost:5002/users/signin
 content-type: application/json
 
 {
-    "email": "pirmas@email.com",
+    "email": "pirmas@gmail.com",
     "password": "pirmas"
 }
 
@@ -25,12 +25,12 @@ POST http://localhost:5002/users/CreateMemory
 content-type: application/json
 
 {
-    "song_url": "trecias",
-    "memories_title": "laima", 
+    "song_url": "DAINOS URL",
+    "memories_title": "Tripping over air", 
     "memories_description": "something",
     "images": "",
-    "memory_keywords": "", 
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlM2JmMmMyNzg5NTVhYmUzYmFjMDFlIiwiZW1haWwiOiJwaXJtYXNAZW1haWwuY29tIiwiaWF0IjoxNjc1ODczNjg1LCJleHAiOjE2NzU4ODA4ODV9.JS68A63ozBUocJu3i84VQGkDiEc2M0J7vMoJlWgszOM"
+    "memory_keywords": "some keywords", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlNDEwNjRlZTFmZjk2ZjFlZjk5N2I0IiwiZW1haWwiOiJwaXJtYXNAZ21haWwuY29tIiwiaWF0IjoxNjc1ODkwODAxLCJleHAiOjE2NzU4OTgwMDF9.QIjLMMPcC6WM58fD0rGdXICybhv4wFV_BQfXxxvWOKs"
 }
 
 
@@ -49,6 +49,6 @@ POST http://localhost:5002/users/delete
 content-type: application/json
 
 {
-   
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlM2JmMmMyNzg5NTVhYmUzYmFjMDFlIiwiZW1haWwiOiJwaXJtYXNAZW1haWwuY29tIiwiaWF0IjoxNjc1ODczNjg1LCJleHAiOjE2NzU4ODA4ODV9.JS68A63ozBUocJu3i84VQGkDiEc2M0J7vMoJlWgszOM"
+   "_id": "63e4109bee1ff96f1ef997b7",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlNDEwNjRlZTFmZjk2ZjFlZjk5N2I0IiwiZW1haWwiOiJwaXJtYXNAZ21haWwuY29tIiwiaWF0IjoxNjc1ODkwODAxLCJleHAiOjE2NzU4OTgwMDF9.QIjLMMPcC6WM58fD0rGdXICybhv4wFV_BQfXxxvWOKs"
 }

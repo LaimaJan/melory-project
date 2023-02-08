@@ -180,6 +180,26 @@ app.get('/users/MyPage', auth, async (req, res) => {
 });
 
 app.post('/users/delete', auth, async (req, res) => {
-	const user = req.user;
-	const { user_id } = user;
+	const memoryId = req.body._id;
+	console.log('memoryId: ', memoryId);
+
+	try {
+		await Song.findByIdAndDelete(memoryId);
+
+		res.json({ message: `Info about memory is deleted` });
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+app.post('/users/update', auth, async (req, res) => {
+	// const id = req.params.id;
+	// const kidNewData = req.body;
+	// try {
+	// 	await Kid.findByIdAndUpdate(id, kidNewData);
+	// 	const updatedKidData = await Kid.findById(id);
+	// 	res.json(updatedKidData);
+	// } catch (error) {
+	// 	console.log(error);
+	// }
 });
