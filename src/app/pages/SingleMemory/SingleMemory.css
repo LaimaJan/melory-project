@@ -1,0 +1,19 @@
+.main {
+	width: 60%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+
+.button-container {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	/* margin-right: 10px; */
+}
+
+.button-container > * {
+	margin-right: 10px;
+	background-color: var(--purple);
+}

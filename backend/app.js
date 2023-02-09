@@ -121,6 +121,7 @@ app.post('/users/signin', async (req, res) => {
 
 app.post('/users/CreateMemory', auth, async (req, res) => {
 	const user = req.user;
+	console.log('user: ', user);
 
 	const { user_id } = user;
 	// console.log('usersID:   ', user_id);
@@ -129,9 +130,11 @@ app.post('/users/CreateMemory', auth, async (req, res) => {
 		song_url,
 		memories_title,
 		memories_description,
-		images,
+		image_url,
 		memory_keywords,
 	} = req.body;
+
+	console.log('image_url: ', image_url);
 
 	// const memories = await Song.find({
 	// 	user_id: user_id,
@@ -154,7 +157,7 @@ app.post('/users/CreateMemory', auth, async (req, res) => {
 			song_url,
 			memories_title,
 			memories_description,
-			images,
+			image_url,
 			memory_keywords,
 		});
 
@@ -181,12 +184,27 @@ app.get('/users/MyPage', auth, async (req, res) => {
 
 app.post('/users/delete', auth, async (req, res) => {
 	const memoryId = req.body._id;
-	console.log('memoryId: ', memoryId);
+
+	const user = req.user;
+	const { user_id } = user;
 
 	try {
-		await Song.findByIdAndDelete(memoryId);
+		const memoryToDelete = await Song.find({
+			user_id: user_id,
+			_id: memoryId,
+		});
+		// console.log(memoryToDelete);
 
-		res.json({ message: `Info about memory is deleted` });
+		if (memoryToDelete) {
+			await Song.findByIdAndDelete(memoryId);
+
+			res.json({ message: `Info about memory is deleted` });
+		} else {
+			res.status(400).json({
+				success: false,
+				message: 'Memory id and persons id do not match',
+			});
+		}
 	} catch (error) {
 		console.log(error);
 	}

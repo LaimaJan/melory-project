@@ -17,13 +17,12 @@ const songSchema = mongoose.Schema({
 		type: String,
 		required: false,
 	},
-	images: {
-		data: Buffer,
-		contentType: String,
+	image_url: {
+		type: String,
 		required: false,
 	},
 	memory_keywords: {
-		type: [String],
+		type: String,
 		required: false,
 	},
 });

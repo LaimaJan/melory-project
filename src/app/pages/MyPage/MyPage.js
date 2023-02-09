@@ -13,12 +13,9 @@ import { CreateMemoryContext } from '../../context/CreateMemoryContext';
 function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
-	const {
-		getMemories,
-		songMemories,
-		//  singleCardClicked,
-		deleteMemory,
-	} = useContext(CreateMemoryContext);
+
+	const { getMemories, songMemories, deleteMemory } =
+		useContext(CreateMemoryContext);
 
 	const handleClick = () => {
 		let letLogOut = logOut();
@@ -26,6 +23,12 @@ function MyPage() {
 		if (letLogOut) {
 			navigate('/');
 		}
+	};
+
+	const singleMemoryClicked = (id) => {
+		console.log('Pries function: ' + id);
+
+		navigate(`/users/SingleMemory/${id}`);
 	};
 
 	useEffect(() => {
@@ -64,19 +67,22 @@ function MyPage() {
 					{songMemories.map(
 						({
 							// song_url,
+
 							_id,
 							memories_title,
 							memories_description,
+							image_url,
 							memory_keywords,
 						}) => (
 							<SongCard
 								key={_id}
-								// image={song_url}
+								image={image_url}
 								title={memories_title}
 								memoryTitle={memories_title}
 								memoryDescription={memories_description}
 								keywords={memory_keywords}
-								singleCard={() => deleteMemory(_id)}
+								singleCardDelete={() => deleteMemory(_id)}
+								singleMemoryPreview={() => singleMemoryClicked(_id)}
 							/>
 						)
 					)}

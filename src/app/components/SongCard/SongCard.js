@@ -7,13 +7,14 @@ function SongCard({
 	image,
 	title,
 	memoryTitle,
-	singleCard,
+	singleCardDelete,
+	singleMemoryPreview,
 }) {
 	return (
 		<div className="song-card">
 			<div className="song-card-content">
 				<div className="song-card-img-container">
-					<img src={image} alt={title}></img>
+					<img src={image} alt={title} className="img" />
 				</div>
 				<div className="song-card-text">
 					<div className="song-memory-title">
@@ -27,9 +28,9 @@ function SongCard({
 						<p>{keywords}</p>
 					</div>
 					<div className="song-card-buttons">
-						<Button onClick={singleCard}>Delete</Button>
+						<Button onClick={singleCardDelete}>Delete</Button>
 						<Button>Edit</Button>
-						<Button>Review</Button>
+						<Button onClick={singleMemoryPreview}>Review</Button>
 					</div>
 				</div>
 			</div>

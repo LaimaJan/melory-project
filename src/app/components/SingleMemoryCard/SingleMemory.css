@@ -1,0 +1,76 @@
+.memory-card-holder {
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0 auto;
+	background-color: #a5a4af;
+
+	padding: 10px 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.memory-card {
+	background-color: var(--white);
+	background-color: #dfdfe1;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.memory-card-top {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.img-container {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.title-description-container {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.title {
+	font-size: 25px;
+	font-weight: 600;
+}
+
+.description {
+	text-align: left;
+	font-size: 22px;
+	line-height: 30px;
+}
+
+.keywords-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 5px 10px;
+	font-size: 22px;
+}
+
+.keywords-label {
+	margin-right: 5px;
+	text-decoration: underline;
+}
+
+.video-container {
+	background-color: cornflowerblue;
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+iframe {
+	width: 420px;
+	height: 315px;
+}

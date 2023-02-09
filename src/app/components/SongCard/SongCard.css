@@ -14,14 +14,18 @@
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+	align-items: stretch;
+	align-content: space-between;
 }
 
 .song-card-img-container {
 	width: 20%;
 	background-color: rgb(24, 25, 26);
 	display: flex;
-	align-items: center;
-	justify-content: center;
+}
+
+.img {
+	width: 100%;
 }
 
 .song-card-text {
@@ -46,7 +50,8 @@
 }
 
 .song-memory p {
-	font-size: 23px;
+	font-size: 22px;
+	line-height: 30px;
 }
 
 .song-keywords {

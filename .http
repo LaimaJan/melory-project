@@ -16,8 +16,8 @@ POST http://localhost:5002/users/signin
 content-type: application/json
 
 {
-    "email": "pirmas@gmail.com",
-    "password": "pirmas"
+    "email": "lm.lingyte@gmail.com",
+    "password": "laima"
 }
 
 ### create memory
@@ -25,12 +25,12 @@ POST http://localhost:5002/users/CreateMemory
 content-type: application/json
 
 {
-    "song_url": "DAINOS URL",
+    "song_url": "DsefURL",
     "memories_title": "Tripping over air", 
     "memories_description": "something",
-    "images": "",
-    "memory_keywords": "some keywords", 
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlNDEwNjRlZTFmZjk2ZjFlZjk5N2I0IiwiZW1haWwiOiJwaXJtYXNAZ21haWwuY29tIiwiaWF0IjoxNjc1ODkwODAxLCJleHAiOjE2NzU4OTgwMDF9.QIjLMMPcC6WM58fD0rGdXICybhv4wFV_BQfXxxvWOKs"
+    "image_url": "https://www.heart.org/-/media/AHA/H4GM/Article-Images/Summer.jpg",
+    "memory_keywords": "some", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlMzljOTk4MmI0MTYwYjhmNjU1ZjM1IiwiZW1haWwiOiJsbS5saW5neXRlQGdtYWlsLmNvbSIsImlhdCI6MTY3NTk2MzAxMCwiZXhwIjoxNjc1OTcwMjEwfQ.qS3e17I0P5ihK4jzoqxWwPCwo-8arbQJey5Mp6Pipb0"
 }
 
 

@@ -86,10 +86,10 @@ function CreateMemory() {
 								/>
 							</div>
 							<div className="add-memory-photos">
-								<label htmlFor="photos">Photos</label>
+								<label htmlFor="photos">URL of photo</label>
 								<input
-									type="file"
-									id="memory-photos"
+									type="text"
+									id="memory-photo-url"
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>

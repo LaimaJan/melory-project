@@ -9,20 +9,15 @@ const MemoryProvider = ({ children }) => {
 	const [title, setTitle] = useState('');
 	const [keywords, setKeywords] = useState('');
 	const [description, setDescription] = useState('');
-	const [photos, setPhotos] = useState('');
+	const [photoUrl, setPhotoUrl] = useState('');
 	const [songMemories, setSongMemories] = useState([]);
-	const [deleteMemoryId, setDeleteMemoryId] = useState('');
 
 	const songMemory = {
 		song_url: songUrl,
 		memories_title: title,
 		memory_keywords: keywords,
 		memories_description: description,
-		images: photos,
-	};
-
-	const memoryToDelete = {
-		_id: deleteMemoryId,
+		image_url: photoUrl,
 	};
 
 	const handleInputChange = (e) => {
@@ -39,11 +34,11 @@ const MemoryProvider = ({ children }) => {
 		if (id === 'memory-description') {
 			setDescription(value);
 		}
-		if (id === 'memory-photos') {
-			setPhotos(value);
+		if (id === 'memory-photo-url') {
+			setPhotoUrl(value);
 		}
 
-		console.log(songUrl, keywords, description, photos);
+		console.log('photoUrl: ', photoUrl);
 	};
 
 	const createMemory = async (e) => {
@@ -93,7 +88,6 @@ const MemoryProvider = ({ children }) => {
 
 	const getMemories = async () => {
 		const token = localStorage.getItem('token');
-		console.log('tokenas: ', token);
 
 		try {
 			const result = await fetch(API_URL + '/users/MyPage', {
@@ -107,7 +101,7 @@ const MemoryProvider = ({ children }) => {
 				throw new Error('failed to load');
 			} else {
 				let json = await result.json();
-				console.log(json);
+
 				setSongMemories(json);
 			}
 		} catch (error) {
@@ -115,16 +109,10 @@ const MemoryProvider = ({ children }) => {
 		}
 	};
 
-	// const singleCardClicked = (id) => {
-	// 	setDeleteMemoryId(id);
-	// };
-
 	const deleteMemory = async (id) => {
-		setDeleteMemoryId(id);
-		console.log('deleteMemoryId: ', memoryToDelete);
+		console.log('deleteMemoryId: ', id);
 
 		const token = localStorage.getItem('token');
-		console.log('tokenas: ', token);
 
 		let response = {
 			success: true,
@@ -139,15 +127,16 @@ const MemoryProvider = ({ children }) => {
 						'Content-type': 'application/json',
 						'x-access-token': token,
 					},
-					body: JSON.stringify(memoryToDelete),
+					body: JSON.stringify({
+						_id: id,
+					}),
 				})
 			).json();
 
 			if (data.message === 'Info about memory is deleted') {
 				response.success = true;
-				response.error = 'Info about memory is deleted';
+				// response.error = 'Info about memory is deleted';
 			}
-			console.log(data);
 
 			window.location.reload();
 		} catch (error) {
@@ -165,7 +154,6 @@ const MemoryProvider = ({ children }) => {
 				getMemories,
 				songMemories,
 				deleteMemory,
-				// singleCardClicked,
 			}}
 		>
 			{children}

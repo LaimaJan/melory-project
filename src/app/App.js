@@ -20,7 +20,7 @@ function App() {
 						<Route path="/users/signin" element={<SignIn />} />
 						<Route path="/users/MyPage" element={<MyPage />} />
 						<Route path="/users/CreateMemory" element={<CreateMemory />} />
-						<Route path="/users/SingleMemory" element={<SingleMemory />} />
+						<Route path="/users/SingleMemory/:id" element={<SingleMemory />} />
 
 						<Route path="*" element={<p>Theres's no page, go back!</p>} />
 					</Routes>
