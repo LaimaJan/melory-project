@@ -10,15 +10,8 @@ const MemoryProvider = ({ children }) => {
 	const [keywords, setKeywords] = useState('');
 	const [description, setDescription] = useState('');
 	const [photoUrl, setPhotoUrl] = useState('');
-	const [songMemories, setSongMemories] = useState([]);
-
-	const songMemory = {
-		song_url: songUrl,
-		memories_title: title,
-		memory_keywords: keywords,
-		memories_description: description,
-		image_url: photoUrl,
-	};
+	const [songMemoriesObject, setSongMemoriesObject] = useState([]);
+	const [songMemoriesArray, setSongMemoriesArray] = useState([]);
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target;
@@ -44,6 +37,20 @@ const MemoryProvider = ({ children }) => {
 	const createMemory = async (e) => {
 		e.preventDefault();
 
+		const songUrlEmbed = songUrl.replace('watch?v=', 'embed/');
+		console.log('songUrl: ', songUrl);
+		const enableYoutubeVideo = '?enablejsapi=1';
+		const result = [songUrlEmbed, enableYoutubeVideo].join('');
+		console.log('result', result);
+
+		const songMemory = {
+			song_url: result,
+			memories_title: title,
+			memory_keywords: keywords,
+			memories_description: description,
+			image_url: photoUrl,
+		};
+
 		let response = {
 			success: true,
 			error: null,
@@ -55,7 +62,9 @@ const MemoryProvider = ({ children }) => {
 		}
 
 		const token = localStorage.getItem('token');
-		console.log('tokenas: ', token);
+		// console.log('tokenas: ', token);
+
+		console.log('songUrlEmbed', songUrlEmbed);
 
 		if (response.error === null) {
 			try {
@@ -102,7 +111,22 @@ const MemoryProvider = ({ children }) => {
 			} else {
 				let json = await result.json();
 
-				setSongMemories(json);
+				setSongMemoriesArray(json);
+
+				const arrayConversionToObject = (array, key) => {
+					const initialValue = {};
+					return array.reduce((obj, item) => {
+						return {
+							...obj,
+							[item[key]]: item,
+						};
+					}, initialValue);
+				};
+
+				const newJson = arrayConversionToObject(json, '_id');
+				console.log('newJson: ', newJson);
+
+				setSongMemoriesObject(newJson);
 			}
 		} catch (error) {
 			console.log(error);
@@ -152,8 +176,9 @@ const MemoryProvider = ({ children }) => {
 				createMemory,
 				handleInputChange,
 				getMemories,
-				songMemories,
+				songMemoriesObject,
 				deleteMemory,
+				songMemoriesArray,
 			}}
 		>
 			{children}

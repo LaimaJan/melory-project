@@ -14,7 +14,7 @@ function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
 
-	const { getMemories, songMemories, deleteMemory } =
+	const { getMemories, songMemoriesArray, deleteMemory } =
 		useContext(CreateMemoryContext);
 
 	const handleClick = () => {
@@ -29,6 +29,12 @@ function MyPage() {
 		console.log('Pries function: ' + id);
 
 		navigate(`/users/SingleMemory/${id}`);
+	};
+
+	const memoryEdit = (id) => {
+		console.log('Pries function: ' + id);
+
+		navigate(`/users/EditMemory/${id}`);
 	};
 
 	useEffect(() => {
@@ -64,10 +70,8 @@ function MyPage() {
 					</div>
 				</div>
 				<div className="main-content-middle">
-					{songMemories.map(
+					{songMemoriesArray.map(
 						({
-							// song_url,
-
 							_id,
 							memories_title,
 							memories_description,
@@ -83,6 +87,7 @@ function MyPage() {
 								keywords={memory_keywords}
 								singleCardDelete={() => deleteMemory(_id)}
 								singleMemoryPreview={() => singleMemoryClicked(_id)}
+								singleMemoryEdit={() => memoryEdit(_id)}
 							/>
 						)
 					)}

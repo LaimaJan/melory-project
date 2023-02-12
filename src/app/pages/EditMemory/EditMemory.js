@@ -1,4 +1,4 @@
-import './SingleMemory.css';
+import '../SingleMemory/SingleMemory.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Button from '../../components/Button/Button';
@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
-function SingleMemory() {
+function EditMemory() {
 	const navigate = useNavigate();
 	let { id } = useParams();
 
@@ -17,10 +17,6 @@ function SingleMemory() {
 	const { songMemoriesObject } = useContext(CreateMemoryContext);
 
 	const memoryCard = songMemoriesObject[id];
-
-	const memoryEdit = () => {
-		navigate(`/users/EditMemory/${id}`);
-	};
 
 	const handleClick = () => {
 		let letLogOut = logOut();
@@ -60,7 +56,7 @@ function SingleMemory() {
 						/>
 					)}
 					<div className="button-container">
-						<Button onClick={memoryEdit}>Edit</Button>
+						<Button>Save</Button>
 					</div>
 				</div>
 			</main>
@@ -69,4 +65,4 @@ function SingleMemory() {
 	);
 }
 
-export default SingleMemory;
+export default EditMemory;

@@ -9,6 +9,7 @@ function SongCard({
 	memoryTitle,
 	singleCardDelete,
 	singleMemoryPreview,
+	singleMemoryEdit,
 }) {
 	return (
 		<div className="song-card">
@@ -29,7 +30,7 @@ function SongCard({
 					</div>
 					<div className="song-card-buttons">
 						<Button onClick={singleCardDelete}>Delete</Button>
-						<Button>Edit</Button>
+						<Button onClick={singleMemoryEdit}>Edit</Button>
 						<Button onClick={singleMemoryPreview}>Review</Button>
 					</div>
 				</div>

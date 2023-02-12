@@ -1,5 +1,4 @@
 import './SingleMemory.css';
-// import Button from '../Button/Button';
 
 function SingleMemoryCard({
 	video,
