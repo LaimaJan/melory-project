@@ -133,6 +133,58 @@ const MemoryProvider = ({ children }) => {
 		}
 	};
 
+	const updateMemories = async (e, id) => {
+		e.preventDefault();
+
+		console.log('id of card: ', id);
+		const songMemory = {
+			song_url: songUrl,
+			memories_title: title,
+			memory_keywords: keywords,
+			memories_description: description,
+			image_url: photoUrl,
+		};
+
+		let response = {
+			success: true,
+			error: null,
+		};
+
+		if (songMemory.url === '') {
+			response.success = false;
+			response.error = 'Please enter song url';
+		}
+
+		const token = localStorage.getItem('token');
+
+		if (response.error === null) {
+			try {
+				const result = await fetch(API_URL + `/users/EditMemory/${id}`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						'x-access-token': token,
+					},
+					body: JSON.stringify(songMemory),
+				});
+
+				const data = result.json();
+				console.log('Edited memory data: ', data);
+
+				if (data.message === 'Memory updated') {
+					response.success = true;
+					response.error = 'Memory was updated';
+				}
+
+				getMemories();
+			} catch (error) {
+				console.log(error);
+			}
+		}
+
+		return response;
+	};
+
 	const deleteMemory = async (id) => {
 		console.log('deleteMemoryId: ', id);
 
@@ -179,6 +231,7 @@ const MemoryProvider = ({ children }) => {
 				songMemoriesObject,
 				deleteMemory,
 				songMemoriesArray,
+				updateMemories,
 			}}
 		>
 			{children}

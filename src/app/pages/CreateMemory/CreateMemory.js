@@ -86,7 +86,7 @@ function CreateMemory() {
 								/>
 							</div>
 							<div className="add-memory-photos">
-								<label htmlFor="photos">URL of photo</label>
+								<label htmlFor="photos">URL of image</label>
 								<input
 									type="text"
 									id="memory-photo-url"

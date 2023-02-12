@@ -25,12 +25,12 @@ POST http://localhost:5002/users/CreateMemory
 content-type: application/json
 
 {
-    "song_url": "DsefURL",
+    "song_url": "URLAS",
     "memories_title": "Tripping over air", 
     "memories_description": "something",
-    "image_url": "https://www.heart.org/-/media/AHA/H4GM/Article-Images/Summer.jpg",
+    "image_url": "NUOTRAUKA",
     "memory_keywords": "some", 
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlMzljOTk4MmI0MTYwYjhmNjU1ZjM1IiwiZW1haWwiOiJsbS5saW5neXRlQGdtYWlsLmNvbSIsImlhdCI6MTY3NTk2MzAxMCwiZXhwIjoxNjc1OTcwMjEwfQ.qS3e17I0P5ihK4jzoqxWwPCwo-8arbQJey5Mp6Pipb0"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlMzljOTk4MmI0MTYwYjhmNjU1ZjM1IiwiZW1haWwiOiJsbS5saW5neXRlQGdtYWlsLmNvbSIsImlhdCI6MTY3NjIyMzkxNywiZXhwIjoxNjc2MjMxMTE3fQ.2Rsx-Ujfnw6SKbI2RRQ6tR6zcxQ7b3XMvJlFe8Lx6Ow"
 }
 
 
@@ -51,4 +51,17 @@ content-type: application/json
 {
    "_id": "63e4109bee1ff96f1ef997b7",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlNDEwNjRlZTFmZjk2ZjFlZjk5N2I0IiwiZW1haWwiOiJwaXJtYXNAZ21haWwuY29tIiwiaWF0IjoxNjc1ODkwODAxLCJleHAiOjE2NzU4OTgwMDF9.QIjLMMPcC6WM58fD0rGdXICybhv4wFV_BQfXxxvWOKs"
+}
+
+### update memory
+PUT http://localhost:5002/users/EditMemory/63e925ca2548be03b6b52779
+content-type: application/json
+
+{
+    "song_url": "KAZKS NAUJO",
+    "memories_title": "TITLAS", 
+    "memories_description": "DEKRIPTIONAS",
+    "image_url": "NAUJA FOTO FOTO",
+    "memory_keywords": "some", 
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlMzljOTk4MmI0MTYwYjhmNjU1ZjM1IiwiZW1haWwiOiJsbS5saW5neXRlQGdtYWlsLmNvbSIsImlhdCI6MTY3NjIyNDY2NywiZXhwIjoxNjc2MjMxODY3fQ.Vi5JtF3dwHqFBYnomRV5Tw9goxHt1Hog3biNZOczRFI"
 }

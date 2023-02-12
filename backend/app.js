@@ -210,14 +210,17 @@ app.post('/users/delete', auth, async (req, res) => {
 	}
 });
 
-app.post('/users/update', auth, async (req, res) => {
-	// const id = req.params.id;
-	// const kidNewData = req.body;
-	// try {
-	// 	await Kid.findByIdAndUpdate(id, kidNewData);
-	// 	const updatedKidData = await Kid.findById(id);
-	// 	res.json(updatedKidData);
-	// } catch (error) {
-	// 	console.log(error);
-	// }
+app.put('/users/EditMemory/:id', auth, async (req, res) => {
+	const userId = req.params.id;
+	console.log('id: ', userId);
+	const newMemoryData = req.body;
+	console.log('updatedMemoryData: ', newMemoryData);
+
+	try {
+		await Song.findByIdAndUpdate(userId, newMemoryData);
+		const updatedMemory = await Song.findById(userId);
+		res.json({ message: 'Memory updated', song: updatedMemory });
+	} catch (error) {
+		console.log(error);
+	}
 });
