@@ -20,20 +20,25 @@ const FormProvider = ({ children }) => {
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target;
-		if (id === 'firstName') {
-			setFirstName(value);
-		}
-		if (id === 'lastName') {
-			setLastName(value);
-		}
-		if (id === 'email') {
-			setEmail(value);
-		}
-		if (id === 'password') {
-			setPassword(value);
-		}
-		if (id === 'confirmPassword') {
-			setConfirmPassword(value);
+
+		switch (id) {
+			case 'firstName':
+				setFirstName(value);
+				break;
+			case 'lastName':
+				setLastName(value);
+				break;
+			case 'email':
+				setEmail(value);
+				break;
+			case 'password':
+				setPassword(value);
+				break;
+			case 'confirmPassword':
+				setConfirmPassword(value);
+				break;
+			default:
+				console.log('Empty action received at the form.');
 		}
 	};
 

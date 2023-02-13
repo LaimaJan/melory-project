@@ -14,11 +14,51 @@ function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
 
-	// let page = 1;
-	// let itemsPerPage = 10;
-
 	const { getMemories, songMemoriesArray, deleteMemory } =
 		useContext(CreateMemoryContext);
+
+	const paginationElement = document.querySelector('.pagination-container');
+
+	let page = 1;
+	let itemsPerPage = 3;
+
+	let paginatedArray = [];
+	const showMoviesByPagination = (songMemoriesArray) => {
+		console.log('page in showMoviesByPagination: ', page);
+
+		let from = (page - 1) * itemsPerPage;
+		let to = page * itemsPerPage;
+		paginatedArray = songMemoriesArray.slice(from, to);
+		console.log(paginatedArray);
+
+		// return songMemoriesArray;
+	};
+
+	// paginatedArray = showMoviesByPagination(songMemoriesArray);
+	showMoviesByPagination(songMemoriesArray);
+
+	const loadPaginationFooter = (songMemoriesArray) => {
+		// while (paginationElement.firstChild) {
+		// 	paginationElement.removeChild(paginationElement.firstChild);
+		// }
+
+		for (let i = 0; i < songMemoriesArray.length / itemsPerPage; i++) {
+			const span = document.createElement('span');
+			span.innerText = i + 1;
+			span.addEventListener('click', clickedFunction);
+
+			paginationElement.appendChild(span);
+		}
+	};
+
+	const clickedFunction = (e) => {
+		page = e.target.innerText;
+		console.log('page: ', page);
+
+		showMoviesByPagination(songMemoriesArray);
+	};
+
+	loadPaginationFooter(songMemoriesArray);
 
 	const handleClick = () => {
 		let letLogOut = logOut();
@@ -73,7 +113,7 @@ function MyPage() {
 					</div>
 				</div>
 				<div className="main-content-middle">
-					{songMemoriesArray.map(
+					{paginatedArray.map(
 						({
 							_id,
 							memories_title,
@@ -96,6 +136,7 @@ function MyPage() {
 					)}
 				</div>
 			</main>
+			<div className="pagination-container"></div>
 			<Footer />
 		</div>
 	);

@@ -26,6 +26,13 @@
 .img-container {
 	margin-top: 10px;
 	margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.img-container img {
+	width: 100%;
 }
 
 .title-description-container {

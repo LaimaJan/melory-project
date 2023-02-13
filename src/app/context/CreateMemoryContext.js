@@ -15,23 +15,26 @@ const MemoryProvider = ({ children }) => {
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target;
-		if (id === 'song-url') {
-			extractVideoID(value);
-		}
-		if (id === 'memory-title') {
-			setTitle(value);
-		}
-		if (id === 'memory-keywords') {
-			setKeywords(value);
-		}
-		if (id === 'memory-description') {
-			setDescription(value);
-		}
-		if (id === 'memory-photo-url') {
-			setPhotoUrl(value);
-		}
 
-		console.log('photoUrl: ', photoUrl);
+		switch (id) {
+			case 'song-url':
+				extractVideoID(value);
+				break;
+			case 'memory-title':
+				setTitle(value);
+				break;
+			case 'memory-keywords':
+				setKeywords(value);
+				break;
+			case 'memory-description':
+				setDescription(value);
+				break;
+			case 'memory-photo-url':
+				setPhotoUrl(value);
+				break;
+			default:
+				console.log('Empty action received in the memory form.');
+		}
 	};
 
 	const extractVideoID = (url) => {
@@ -66,7 +69,7 @@ const MemoryProvider = ({ children }) => {
 			error: null,
 		};
 
-		if (songMemory.url === '') {
+		if (songMemory.song_url === '') {
 			response.success = false;
 			response.error = 'Please enter song url';
 		}
@@ -131,7 +134,6 @@ const MemoryProvider = ({ children }) => {
 				};
 
 				const newJson = arrayConversionToObject(json, '_id');
-				console.log('newJson: ', newJson);
 
 				setSongMemoriesObject(newJson);
 			}
