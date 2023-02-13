@@ -63,14 +63,15 @@
 }
 
 .video-container {
-	background-color: cornflowerblue;
-	width: 80%;
+	background-color: var(--true-black);
+	width: 100%;
+	width: fit-content;
 	margin: 0 auto;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
 iframe {
-	width: 420px;
-	height: 315px;
+	width: 840px;
+	height: 630px;
 }

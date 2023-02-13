@@ -52,6 +52,10 @@
 .song-memory p {
 	font-size: 22px;
 	line-height: 30px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .song-keywords {
