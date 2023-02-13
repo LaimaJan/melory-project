@@ -14,6 +14,9 @@ function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
 
+	// let page = 1;
+	// let itemsPerPage = 10;
+
 	const { getMemories, songMemoriesArray, deleteMemory } =
 		useContext(CreateMemoryContext);
 

@@ -16,7 +16,7 @@ const MemoryProvider = ({ children }) => {
 	const handleInputChange = (e) => {
 		const { id, value } = e.target;
 		if (id === 'song-url') {
-			setSongUrl(value);
+			extractVideoID(value);
 		}
 		if (id === 'memory-title') {
 			setTitle(value);
@@ -34,17 +34,27 @@ const MemoryProvider = ({ children }) => {
 		console.log('photoUrl: ', photoUrl);
 	};
 
+	const extractVideoID = (url) => {
+		var regExp =
+			// eslint-disable-next-line
+			/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+		var match = url.match(regExp);
+		if (match && match[7].length === 11) {
+			console.log('song url pries setSongUrl: ', match[7]);
+			const youtubString = 'https://www.youtube.com/embed/';
+			const youtubeUrl = [youtubString, match[7]].join('');
+			setSongUrl(youtubeUrl);
+			return youtubeUrl;
+		} else {
+			alert('Could not extract video ID.');
+		}
+	};
+
 	const createMemory = async (e) => {
 		e.preventDefault();
 
-		const songUrlEmbed = songUrl.replace('watch?v=', 'embed/');
-		console.log('songUrl: ', songUrl);
-		const enableYoutubeVideo = '?enablejsapi=1';
-		const result = [songUrlEmbed, enableYoutubeVideo].join('');
-		console.log('result', result);
-
 		const songMemory = {
-			song_url: result,
+			song_url: songUrl,
 			memories_title: title,
 			memory_keywords: keywords,
 			memories_description: description,
@@ -62,9 +72,6 @@ const MemoryProvider = ({ children }) => {
 		}
 
 		const token = localStorage.getItem('token');
-		// console.log('tokenas: ', token);
-
-		console.log('songUrlEmbed', songUrlEmbed);
 
 		if (response.error === null) {
 			try {
@@ -211,7 +218,6 @@ const MemoryProvider = ({ children }) => {
 
 			if (data.message === 'Info about memory is deleted') {
 				response.success = true;
-				// response.error = 'Info about memory is deleted';
 			}
 
 			window.location.reload();
