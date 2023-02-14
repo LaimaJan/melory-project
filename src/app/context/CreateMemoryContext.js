@@ -43,7 +43,6 @@ const MemoryProvider = ({ children }) => {
 			/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 		var match = url.match(regExp);
 		if (match && match[7].length === 11) {
-			console.log('song url pries setSongUrl: ', match[7]);
 			const youtubString = 'https://www.youtube.com/embed/';
 			const youtubeUrl = [youtubString, match[7]].join('');
 			setSongUrl(youtubeUrl);
@@ -145,7 +144,6 @@ const MemoryProvider = ({ children }) => {
 	const updateMemories = async (e, id) => {
 		e.preventDefault();
 
-		console.log('id of card: ', id);
 		const songMemory = {
 			song_url: songUrl,
 			memories_title: title,
@@ -178,7 +176,6 @@ const MemoryProvider = ({ children }) => {
 				});
 
 				const data = result.json();
-				console.log('Edited memory data: ', data);
 
 				if (data.message === 'Memory updated') {
 					response.success = true;
@@ -195,8 +192,6 @@ const MemoryProvider = ({ children }) => {
 	};
 
 	const deleteMemory = async (id) => {
-		console.log('deleteMemoryId: ', id);
-
 		const token = localStorage.getItem('token');
 
 		let response = {
@@ -235,11 +230,17 @@ const MemoryProvider = ({ children }) => {
 			value={{
 				createMemory,
 				handleInputChange,
+				// handleSubmit,
 				getMemories,
 				songMemoriesObject,
 				deleteMemory,
 				songMemoriesArray,
 				updateMemories,
+				songUrl,
+				title,
+				keywords,
+				description,
+				photoUrl,
 			}}
 		>
 			{children}

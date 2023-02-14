@@ -2,63 +2,32 @@ import './MyPage.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SongCard from '../../components/SongCard/SongCard';
+import Pagination from '../../components/Paginate/Paginate';
+
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { CreateMemoryContext } from '../../context/CreateMemoryContext';
 
 function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
-
 	const { getMemories, songMemoriesArray, deleteMemory } =
 		useContext(CreateMemoryContext);
 
-	const paginationElement = document.querySelector('.pagination-container');
+	const [currentPage, setCurrentPage] = useState(1);
+	const [cardsPerPage] = useState(3);
 
-	let page = 1;
-	let itemsPerPage = 3;
-
-	let paginatedArray = [];
-	const showMoviesByPagination = (songMemoriesArray) => {
-		console.log('page in showMoviesByPagination: ', page);
-
-		let from = (page - 1) * itemsPerPage;
-		let to = page * itemsPerPage;
-		paginatedArray = songMemoriesArray.slice(from, to);
-		console.log(paginatedArray);
-
-		// return songMemoriesArray;
-	};
-
-	// paginatedArray = showMoviesByPagination(songMemoriesArray);
-	showMoviesByPagination(songMemoriesArray);
-
-	const loadPaginationFooter = (songMemoriesArray) => {
-		// while (paginationElement.firstChild) {
-		// 	paginationElement.removeChild(paginationElement.firstChild);
-		// }
-
-		for (let i = 0; i < songMemoriesArray.length / itemsPerPage; i++) {
-			const span = document.createElement('span');
-			span.innerText = i + 1;
-			span.addEventListener('click', clickedFunction);
-
-			paginationElement.appendChild(span);
-		}
-	};
-
-	const clickedFunction = (e) => {
-		page = e.target.innerText;
-		console.log('page: ', page);
-
-		showMoviesByPagination(songMemoriesArray);
-	};
-
-	loadPaginationFooter(songMemoriesArray);
+	const indexOfLastRecord = currentPage * cardsPerPage;
+	const indexOfFirstRecord = indexOfLastRecord - cardsPerPage;
+	const currentRecords = songMemoriesArray.slice(
+		indexOfFirstRecord,
+		indexOfLastRecord
+	);
+	const nPages = Math.ceil(songMemoriesArray.length / cardsPerPage);
 
 	const handleClick = () => {
 		let letLogOut = logOut();
@@ -113,7 +82,7 @@ function MyPage() {
 					</div>
 				</div>
 				<div className="main-content-middle">
-					{paginatedArray.map(
+					{currentRecords.map(
 						({
 							_id,
 							memories_title,
@@ -135,8 +104,12 @@ function MyPage() {
 						)
 					)}
 				</div>
+				<Pagination
+					nPages={nPages}
+					currentPage={currentPage}
+					setCurrentPage={setCurrentPage}
+				/>
 			</main>
-			<div className="pagination-container"></div>
 			<Footer />
 		</div>
 	);

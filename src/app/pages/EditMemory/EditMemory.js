@@ -1,8 +1,6 @@
 import '../CreateMemory/CreateMemory.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-// import Button from '../../components/Button/Button';
-// import SingleMemoryCard from '../../components/SingleMemoryCard/SingleMemory';
 
 import { CreateMemoryContext } from '../../context/CreateMemoryContext';
 import { useContext } from 'react';
@@ -14,8 +12,16 @@ function EditMemory() {
 	let { id } = useParams();
 
 	const { logOut } = useContext(AuthContext);
-	const { songMemoriesObject, handleInputChange, updateMemories } =
-		useContext(CreateMemoryContext);
+	const {
+		songMemoriesObject,
+		handleInputChange,
+		updateMemories,
+		songUrl,
+		title,
+		keywords,
+		description,
+		photoUrl,
+	} = useContext(CreateMemoryContext);
 
 	const memoryCard = songMemoriesObject[id];
 
@@ -63,44 +69,49 @@ function EditMemory() {
 							<div className="add-song-url">
 								<label htmlFor="url">Add URL</label>
 								<input
+									name="url"
 									type="url"
 									id="song-url"
-									defaultValue={memoryCard.song_url}
+									defaultValue={songUrl}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
 							<div className="add-memory-title">
 								<label htmlFor="title">Add title</label>
 								<input
+									name="title"
 									type="text"
 									id="memory-title"
-									defaultValue={memoryCard.memories_title}
+									defaultValue={title}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
 							<div className="add-memory-keywords">
 								<label htmlFor="keywords">Memory keywords</label>
 								<input
+									name="keywords"
 									type="text"
 									id="memory-keywords"
-									defaultValue={memoryCard.memory_keywords}
+									defaultValue={keywords}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
 							<div className="add-memory-description">
 								<label htmlFor="description">Memory description</label>
 								<textarea
+									name="description"
 									id="memory-description"
-									defaultValue={memoryCard.memories_description}
+									defaultValue={description}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
 							<div className="add-memory-photos">
 								<label htmlFor="photos">URL of image</label>
 								<input
+									name="photos"
 									type="text"
 									id="memory-photo-url"
-									defaultValue={memoryCard.image_url}
+									defaultValue={photoUrl}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
