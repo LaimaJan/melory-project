@@ -22,7 +22,7 @@ const songSchema = mongoose.Schema({
 		required: false,
 	},
 	memory_keywords: {
-		type: String,
+		type: Array,
 		required: false,
 	},
 });

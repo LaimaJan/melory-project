@@ -143,14 +143,19 @@ const MemoryProvider = ({ children }) => {
 
 	const updateMemories = async (e, id) => {
 		e.preventDefault();
+		console.log(id);
+
+		const memoryCard = songMemoriesObject[id];
 
 		const songMemory = {
-			song_url: songUrl,
-			memories_title: title,
-			memory_keywords: keywords,
-			memories_description: description,
-			image_url: photoUrl,
+			song_url: songUrl === '' ? memoryCard.song_url : songUrl,
+			memories_title: title === '' ? memoryCard.memories_title : title,
+			memory_keywords: keywords === '' ? memoryCard.memory_keywords : keywords,
+			memories_description:
+				description === '' ? memoryCard.memories_description : description,
+			image_url: photoUrl === '' ? memoryCard.image_url : photoUrl,
 		};
+		console.log(songMemory);
 
 		let response = {
 			success: true,
@@ -225,12 +230,13 @@ const MemoryProvider = ({ children }) => {
 		return response;
 	};
 
+	const filterByKeywords = async () => {};
+
 	return (
 		<CreateMemoryContext.Provider
 			value={{
 				createMemory,
 				handleInputChange,
-				// handleSubmit,
 				getMemories,
 				songMemoriesObject,
 				deleteMemory,
@@ -241,6 +247,7 @@ const MemoryProvider = ({ children }) => {
 				keywords,
 				description,
 				photoUrl,
+				filterByKeywords,
 			}}
 		>
 			{children}

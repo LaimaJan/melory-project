@@ -12,16 +12,8 @@ function EditMemory() {
 	let { id } = useParams();
 
 	const { logOut } = useContext(AuthContext);
-	const {
-		songMemoriesObject,
-		handleInputChange,
-		updateMemories,
-		songUrl,
-		title,
-		keywords,
-		description,
-		photoUrl,
-	} = useContext(CreateMemoryContext);
+	const { songMemoriesObject, handleInputChange, updateMemories } =
+		useContext(CreateMemoryContext);
 
 	const memoryCard = songMemoriesObject[id];
 
@@ -72,7 +64,7 @@ function EditMemory() {
 									name="url"
 									type="url"
 									id="song-url"
-									defaultValue={songUrl}
+									defaultValue={memoryCard.song_url}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
@@ -82,7 +74,7 @@ function EditMemory() {
 									name="title"
 									type="text"
 									id="memory-title"
-									defaultValue={title}
+									defaultValue={memoryCard.memories_title}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
@@ -92,7 +84,7 @@ function EditMemory() {
 									name="keywords"
 									type="text"
 									id="memory-keywords"
-									defaultValue={keywords}
+									defaultValue={memoryCard.memory_keywords}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
@@ -101,7 +93,7 @@ function EditMemory() {
 								<textarea
 									name="description"
 									id="memory-description"
-									defaultValue={description}
+									defaultValue={memoryCard.memories_description}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>
@@ -111,7 +103,7 @@ function EditMemory() {
 									name="photos"
 									type="text"
 									id="memory-photo-url"
-									defaultValue={photoUrl}
+									defaultValue={memoryCard.image_url}
 									onChange={(e) => handleInputChange(e)}
 								/>
 							</div>

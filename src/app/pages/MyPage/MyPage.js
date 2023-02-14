@@ -29,6 +29,8 @@ function MyPage() {
 	);
 	const nPages = Math.ceil(songMemoriesArray.length / cardsPerPage);
 
+	console.log(songMemoriesArray);
+
 	const handleClick = () => {
 		let letLogOut = logOut();
 
