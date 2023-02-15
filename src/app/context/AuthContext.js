@@ -9,6 +9,16 @@ const FormProvider = ({ children }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [token, setToken] = useState(
+		window.localStorage.getItem('token' || [])
+	);
+
+	console.log(token);
+
+	const updateToken = (token) => {
+		window.localStorage.setItem('token', token);
+		setToken(token);
+	};
 
 	const user = {
 		name: firstName,
@@ -119,6 +129,8 @@ const FormProvider = ({ children }) => {
 					})
 				).json();
 
+				updateToken(data.user.token);
+
 				if (data.message === 'User found') {
 					localStorage.setItem('user', data.user._id);
 					localStorage.setItem('token', data.user.token);
@@ -150,6 +162,8 @@ const FormProvider = ({ children }) => {
 	return (
 		<AuthContext.Provider
 			value={{
+				token,
+				updateToken,
 				signUpUser,
 				handleInputChange,
 				firstName,

@@ -124,7 +124,6 @@ app.post('/users/CreateMemory', auth, async (req, res) => {
 	console.log('user: ', user);
 
 	const { user_id } = user;
-	// console.log('usersID:   ', user_id);
 
 	const {
 		song_url,
@@ -136,22 +135,7 @@ app.post('/users/CreateMemory', auth, async (req, res) => {
 
 	console.log('image_url: ', image_url);
 
-	// const memories = await Song.find({
-	// 	user_id: user_id,
-	// });
-
-	// console.log('memories: ', memories);
-
 	try {
-		// const oldSong = await Song.findOne({ song_url });
-
-		// if (memories.song_url === oldSong) {
-		// 	return res.status(409).json({
-		// 		success: false,
-		// 		message: 'You have already created a memory with this song...',
-		// 	});
-		// }
-
 		const song = await Song.create({
 			user_id: user_id,
 			song_url,
@@ -172,11 +156,20 @@ app.get('/users/MyPage', auth, async (req, res) => {
 	const { user_id } = user;
 
 	try {
-		const memories = await Song.find({
-			user_id: user_id,
-		});
+		const filterWord = req.query.filter;
+		if (typeof filterWord !== 'undefined') {
+			const filteredCards = await Song.find({
+				memory_keywords: filterWord,
+			});
 
-		res.json(memories);
+			res.json({ filteredCards, message: `Memories filtered` });
+		} else {
+			const memories = await Song.find({
+				user_id: user_id,
+			});
+
+			res.json(memories);
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -193,7 +186,6 @@ app.post('/users/delete', auth, async (req, res) => {
 			user_id: user_id,
 			_id: memoryId,
 		});
-		// console.log(memoryToDelete);
 
 		if (memoryToDelete) {
 			await Song.findByIdAndDelete(memoryId);

@@ -9,17 +9,20 @@ import MyPage from './pages/MyPage/MyPage';
 import CreateMemory from './pages/CreateMemory/CreateMemory';
 import SingleMemory from './pages/SingleMemory/SingleMemory';
 import EditMemory from './pages/EditMemory/EditMemory';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
 	return (
-		<MemoryProvider>
-			<FormProvider>
+		<FormProvider>
+			<MemoryProvider>
 				<BrowserRouter>
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/users/signup" element={<SignUp />} />
 						<Route path="/users/signin" element={<SignIn />} />
-						<Route path="/users/MyPage" element={<MyPage />} />
+						<Route element={<PrivateRoute />}>
+							<Route path="/users/MyPage" element={<MyPage />} />
+						</Route>
 						<Route path="/users/CreateMemory" element={<CreateMemory />} />
 						<Route path="/users/SingleMemory/:id" element={<SingleMemory />} />
 						<Route path="/users/EditMemory/:id" element={<EditMemory />} />
@@ -27,8 +30,8 @@ function App() {
 						<Route path="*" element={<p>Theres's no page, go back!</p>} />
 					</Routes>
 				</BrowserRouter>
-			</FormProvider>
-		</MemoryProvider>
+			</MemoryProvider>
+		</FormProvider>
 	);
 }
 

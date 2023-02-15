@@ -12,6 +12,7 @@ const MemoryProvider = ({ children }) => {
 	const [photoUrl, setPhotoUrl] = useState('');
 	const [songMemoriesObject, setSongMemoriesObject] = useState([]);
 	const [songMemoriesArray, setSongMemoriesArray] = useState([]);
+	const [filterWord, setFilterWord] = useState('');
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target;
@@ -58,10 +59,12 @@ const MemoryProvider = ({ children }) => {
 		const songMemory = {
 			song_url: songUrl,
 			memories_title: title,
-			memory_keywords: keywords,
+			memory_keywords: keywords.toLowerCase().replaceAll(' ', '').split(','),
 			memories_description: description,
 			image_url: photoUrl,
 		};
+
+		console.log('songMemory : ', songMemory);
 
 		let response = {
 			success: true,
@@ -150,7 +153,10 @@ const MemoryProvider = ({ children }) => {
 		const songMemory = {
 			song_url: songUrl === '' ? memoryCard.song_url : songUrl,
 			memories_title: title === '' ? memoryCard.memories_title : title,
-			memory_keywords: keywords === '' ? memoryCard.memory_keywords : keywords,
+			memory_keywords:
+				keywords === ''
+					? memoryCard.memory_keywords
+					: keywords.toLowerCase().split(','),
 			memories_description:
 				description === '' ? memoryCard.memories_description : description,
 			image_url: photoUrl === '' ? memoryCard.image_url : photoUrl,
@@ -230,7 +236,54 @@ const MemoryProvider = ({ children }) => {
 		return response;
 	};
 
-	const filterByKeywords = async () => {};
+	const filterByKeywords = async (e) => {
+		const { id, value } = e.target;
+
+		if (id === 'filter-input') {
+			setFilterWord(value);
+		} else {
+			console.log('Empty action received in the memory form.');
+		}
+
+		const filteringWord = {
+			memory_keywords: filterWord,
+		};
+
+		console.log(filteringWord);
+
+		let response = {
+			success: true,
+			error: null,
+		};
+
+		const token = localStorage.getItem('token');
+
+		if (response.error === null) {
+			try {
+				const data = await (
+					await fetch(API_URL + `/users/MyPage?filter=${filterWord}`, {
+						method: 'GET',
+						headers: {
+							'Content-type': 'application/json',
+							'x-access-token': token,
+						},
+					})
+				).json();
+
+				console.log('filtered data from backend: ', data);
+				setSongMemoriesArray(data);
+
+				if (data.message === 'Memories filtered') {
+					response.success = true;
+					response.error = false;
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}
+
+		return response;
+	};
 
 	return (
 		<CreateMemoryContext.Provider
@@ -242,11 +295,6 @@ const MemoryProvider = ({ children }) => {
 				deleteMemory,
 				songMemoriesArray,
 				updateMemories,
-				songUrl,
-				title,
-				keywords,
-				description,
-				photoUrl,
 				filterByKeywords,
 			}}
 		>

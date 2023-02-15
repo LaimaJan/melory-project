@@ -15,7 +15,7 @@ import { CreateMemoryContext } from '../../context/CreateMemoryContext';
 function MyPage() {
 	const navigate = useNavigate();
 	const { logOut } = useContext(AuthContext);
-	const { getMemories, songMemoriesArray, deleteMemory } =
+	const { getMemories, songMemoriesArray, deleteMemory, filterByKeywords } =
 		useContext(CreateMemoryContext);
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -23,13 +23,16 @@ function MyPage() {
 
 	const indexOfLastRecord = currentPage * cardsPerPage;
 	const indexOfFirstRecord = indexOfLastRecord - cardsPerPage;
-	const currentRecords = songMemoriesArray.slice(
+	let currentRecords = songMemoriesArray.slice(
 		indexOfFirstRecord,
 		indexOfLastRecord
 	);
 	const nPages = Math.ceil(songMemoriesArray.length / cardsPerPage);
 
-	console.log(songMemoriesArray);
+	const clickFilterWordBtn = async (e) => {
+		let filteredOutCards = await filterByKeywords(e);
+		console.log(filteredOutCards);
+	};
 
 	const handleClick = () => {
 		let letLogOut = logOut();
@@ -60,8 +63,12 @@ function MyPage() {
 			<Header>
 				<div className="headers-content">
 					<div className="filter-input-container">
-						<input className="filter-input" type="text" />
-						<button className="submitBtn">
+						<input
+							id="filter-input"
+							type="text"
+							onChange={(e) => filterByKeywords(e)}
+						/>
+						<button className="submitBtn" onClick={clickFilterWordBtn}>
 							<FaSearch />
 						</button>
 					</div>

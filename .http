@@ -65,3 +65,11 @@ content-type: application/json
     "memory_keywords": "some", 
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlMzljOTk4MmI0MTYwYjhmNjU1ZjM1IiwiZW1haWwiOiJsbS5saW5neXRlQGdtYWlsLmNvbSIsImlhdCI6MTY3NjIyNDY2NywiZXhwIjoxNjc2MjMxODY3fQ.Vi5JtF3dwHqFBYnomRV5Tw9goxHt1Hog3biNZOczRFI"
 }
+
+### get filtered memories
+GET http://localhost:5002/users/MyPage?filter=cosmos
+content-type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNlMzljOTk4MmI0MTYwYjhmNjU1ZjM1IiwiZW1haWwiOiJsbS5saW5neXRlQGdtYWlsLmNvbSIsImlhdCI6MTY3NjQ3NjM0NSwiZXhwIjoxNjc2NDgzNTQ1fQ.UueNG6RArZyrQ7LCSrkpq5Uq0x9wMzzKxVd01W8orHU"
+}
