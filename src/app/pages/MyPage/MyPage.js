@@ -3,6 +3,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SongCard from '../../components/SongCard/SongCard';
 import Pagination from '../../components/Paginate/Paginate';
+import Button from '../../components/Button/Button';
 
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -68,14 +69,14 @@ function MyPage() {
 							type="text"
 							onChange={(e) => filterByKeywords(e)}
 						/>
-						<button className="submitBtn" onClick={clickFilterWordBtn}>
+						<button className="filter-btn" onClick={clickFilterWordBtn}>
 							<FaSearch />
 						</button>
 					</div>
 					<div className="logOut-container">
-						<button className="logOut-btn btn" onClick={handleClick}>
+						<Button className="btn" onClick={handleClick}>
 							Log Out
-						</button>
+						</Button>
 					</div>
 				</div>
 			</Header>
@@ -86,7 +87,7 @@ function MyPage() {
 					</div>
 					<div className="addSong-container">
 						<Link to="/users/CreateMemory">
-							<button className="addSong-btn btn">Add Song</button>
+							<Button className="addSong-btn">Add Song</Button>
 						</Link>
 					</div>
 				</div>

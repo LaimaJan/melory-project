@@ -40,9 +40,7 @@ function SingleMemory() {
 						</p>
 					</div>
 					<div className="logOut-container">
-						<button className="logOut-btn btn" onClick={handleClick}>
-							Log Out
-						</button>
+						<Button onClick={handleClick}>Log Out</Button>
 					</div>
 				</div>
 			</Header>
@@ -60,7 +58,7 @@ function SingleMemory() {
 						/>
 					)}
 					<div className="button-container">
-						<Button onClick={memoryEdit}>Edit</Button>
+						<Button onClick={memoryEdit}>Edit Memory</Button>
 					</div>
 				</div>
 			</main>

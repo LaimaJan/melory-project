@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import Button from '../../components/Button/Button';
 
 function SignUp() {
 	const {
@@ -101,13 +102,9 @@ function SignUp() {
 						</div>
 					</div>
 					<div className="submit-container">
-						<button
-							type="submit"
-							className="register btn"
-							onClick={handleClick}
-						>
+						<Button type="submit" onClick={handleClick}>
 							Register
-						</button>
+						</Button>
 					</div>
 					<div className="signIn-container">
 						<p>Already have an account?</p>

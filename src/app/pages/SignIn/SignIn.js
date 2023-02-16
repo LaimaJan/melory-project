@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import Button from '../../components/Button/Button';
 
 function SignIn() {
 	const { loginUser, email, password, handleInputChange } =
@@ -57,9 +58,9 @@ function SignIn() {
 						</div>
 					</div>
 					<div className="submit-container">
-						<button type="submit" className="login btn" onClick={handleClick}>
+						<Button type="submit" onClick={handleClick}>
 							Sign In
-						</button>
+						</Button>
 					</div>
 					<div className="signIn-container">
 						<p>Do not have an account?</p>

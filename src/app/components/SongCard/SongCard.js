@@ -29,9 +29,15 @@ function SongCard({
 						<p>{keywords}</p>
 					</div>
 					<div className="song-card-buttons">
-						<Button onClick={singleCardDelete}>Delete</Button>
-						<Button onClick={singleMemoryEdit}>Edit</Button>
-						<Button onClick={singleMemoryPreview}>Review</Button>
+						<Button onClick={singleCardDelete} className="delete-btn button">
+							Delete
+						</Button>
+						<Button onClick={singleMemoryEdit} className="edit-btn button">
+							Edit
+						</Button>
+						<Button onClick={singleMemoryPreview} className="review-btn button">
+							Review
+						</Button>
 					</div>
 				</div>
 			</div>

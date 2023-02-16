@@ -13,8 +13,6 @@ const FormProvider = ({ children }) => {
 		window.localStorage.getItem('token' || [])
 	);
 
-	console.log(token);
-
 	const updateToken = (token) => {
 		window.localStorage.setItem('token', token);
 		setToken(token);

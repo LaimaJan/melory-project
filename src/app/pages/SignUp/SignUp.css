@@ -72,15 +72,6 @@
 	justify-content: center;
 }
 
-.btn {
-	padding: 10px 30px;
-	border: none;
-	border-radius: 5px;
-	background-color: #758fc0;
-	color: var(--true-white);
-	font-weight: 600;
-}
-
 .signIn-container {
 	margin-top: 20px;
 	display: flex;

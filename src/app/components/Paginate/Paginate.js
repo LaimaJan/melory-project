@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import './Paginate.css';
 
 const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
@@ -14,27 +15,18 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
 		<nav>
 			<ul className="pagination">
 				<li className="page-item">
-					<button className="page-link" onClick={prevPage}>
-						Previous
-					</button>
+					<Button onClick={prevPage}>Previous</Button>
 				</li>
 				{pageNumbers.map((pgNumber) => (
 					<li
 						key={pgNumber}
 						className={`page-item ${currentPage === pgNumber ? 'active' : ''} `}
 					>
-						<button
-							onClick={() => setCurrentPage(pgNumber)}
-							className="page-link"
-						>
-							{pgNumber}
-						</button>
+						<Button onClick={() => setCurrentPage(pgNumber)}>{pgNumber}</Button>
 					</li>
 				))}
 				<li className="page-item">
-					<button className="page-link" onClick={nextPage}>
-						Next
-					</button>
+					<Button onClick={nextPage}>Next</Button>
 				</li>
 			</ul>
 		</nav>

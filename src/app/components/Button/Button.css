@@ -1,9 +1,9 @@
-.link-to,
-Button {
+button {
 	padding: 10px 30px;
 	border: none;
 	border-radius: 5px;
-	background-color: #758fc0;
+	background-color: var(--purple);
 	color: var(--true-white);
 	font-weight: 600;
+	font-size: 18px;
 }

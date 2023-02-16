@@ -1,6 +1,7 @@
 import './CreateMemory.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import Button from '../../components/Button/Button';
 
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
@@ -41,9 +42,7 @@ function CreateMemory() {
 						</p>
 					</div>
 					<div className="logOut-container">
-						<button className="logOut-btn btn" onClick={logginOut}>
-							Log Out
-						</button>
+						<Button onClick={logginOut}>Log Out</Button>
 					</div>
 				</div>
 			</Header>
@@ -95,9 +94,9 @@ function CreateMemory() {
 							</div>
 						</div>
 						<div className="submit-container">
-							<button type="submit" onClick={handleClick}>
+							<Button type="submit" onClick={handleClick}>
 								Create Memory
-							</button>
+							</Button>
 						</div>
 					</form>
 				</div>
