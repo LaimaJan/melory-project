@@ -18,11 +18,15 @@
 	justify-content: space-between;
 }
 
-.goBack-container {
-	width: 60%;
+.go-myPage-container {
+	display: flex;
+	margin: 0 auto;
+	flex-direction: row;
+	align-items: center;
+	width: 50%;
 }
 
-.goBack-container p {
+.go-myPage-container p {
 	font-size: 22px;
 	font-weight: 600;
 	color: var(--true-white);

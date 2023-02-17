@@ -5,7 +5,6 @@ import SongCard from '../../components/SongCard/SongCard';
 import Pagination from '../../components/Paginate/Paginate';
 import Button from '../../components/Button/Button';
 
-import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -55,6 +54,13 @@ function MyPage() {
 		navigate(`/users/EditMemory/${id}`);
 	};
 
+	const commaBetweenWords = (string) => {
+		let fixedString = string;
+		console.log(fixedString);
+	};
+
+	commaBetweenWords('summerteenagers');
+
 	useEffect(() => {
 		getMemories();
 	}, []);
@@ -69,9 +75,9 @@ function MyPage() {
 							type="text"
 							onChange={(e) => filterByKeywords(e)}
 						/>
-						<button className="filter-btn" onClick={clickFilterWordBtn}>
-							<FaSearch />
-						</button>
+						<Button className="filter-btn" onClick={clickFilterWordBtn}>
+							Filter
+						</Button>
 					</div>
 					<div className="logOut-container">
 						<Button className="btn" onClick={handleClick}>

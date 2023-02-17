@@ -36,7 +36,7 @@ function CreateMemory() {
 		<div className="App-content">
 			<Header>
 				<div className="headers-content">
-					<div className="goBack-container">
+					<div className="go-myPage-container">
 						<p>
 							<Link to="/users/MyPage">My Page</Link>
 						</p>

@@ -1,5 +1,4 @@
 import { useState, createContext } from 'react';
-
 import { API_URL } from '../../scripts/modules/constants';
 
 const CreateMemoryContext = createContext();
@@ -91,10 +90,6 @@ const MemoryProvider = ({ children }) => {
 					})
 				).json();
 
-				// if (data.message === 'Token is invalid, please recheck') {
-				// 	response.success = false;
-				// 	response.error = 'Token is invalid';
-				// } else
 				if (data.message === 'Created a memory') {
 					response.success = true;
 					response.error = 'Memory with picked song was created';
@@ -271,7 +266,7 @@ const MemoryProvider = ({ children }) => {
 				).json();
 
 				console.log('filtered data from backend: ', data);
-				setSongMemoriesArray(data);
+				setSongMemoriesArray(data.filteredCards);
 
 				if (data.message === 'Memories filtered') {
 					response.success = true;

@@ -26,7 +26,7 @@ function SongCard({
 					</div>
 					<div className="song-keywords">
 						<label>Keywords:</label>
-						<p>{keywords}</p>
+						<p>{keywords.join(', ')}</p>
 					</div>
 					<div className="song-card-buttons">
 						<Button onClick={singleCardDelete} className="delete-btn button">
