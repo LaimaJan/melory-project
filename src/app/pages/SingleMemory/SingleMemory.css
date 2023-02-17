@@ -1,9 +1,11 @@
 .content-wrapper {
+	width: 100%;
 	z-index: 10000;
 	overflow: hidden;
 }
 
 .single-memory {
+	width: 100%;
 	z-index: 9999;
 	position: absolute;
 }

@@ -127,18 +127,16 @@ const FormProvider = ({ children }) => {
 					})
 				).json();
 
-				updateToken(data.user.token);
+				if (data.success) {
+					updateToken(data.user.token);
 
-				if (data.message === 'User found') {
 					localStorage.setItem('user', data.user._id);
 					localStorage.setItem('token', data.user.token);
 
 					response.success = true;
-					response.error = 'User found';
-				} else if (data.message === 'No account with this email') {
+				} else {
 					response.success = false;
-					response.error =
-						'\nNo account is registered with this email, please register...';
+					response.error = data.message;
 				}
 			} catch (error) {
 				console.log(error);
@@ -153,6 +151,7 @@ const FormProvider = ({ children }) => {
 
 		localStorage.removeItem('user');
 		localStorage.removeItem('token');
+		setToken(null);
 
 		return true;
 	};

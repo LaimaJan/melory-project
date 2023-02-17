@@ -89,7 +89,7 @@ app.post('/users/signin', async (req, res) => {
 		if (!user) {
 			return res.status(409).json({
 				success: false,
-				message: 'No account with this email',
+				message: 'No account found with this email',
 			});
 		}
 
@@ -106,7 +106,7 @@ app.post('/users/signin', async (req, res) => {
 			// save user token
 			user.token = token;
 
-			res.status(200).json({ message: 'User found', user });
+			res.status(200).json({ success: true, message: 'User found', user });
 		} else {
 			res.status(400).json({
 				success: false,
@@ -145,7 +145,7 @@ app.post('/users/CreateMemory', auth, async (req, res) => {
 			memory_keywords,
 		});
 
-		res.status(201).json({ message: 'Created a memory', song });
+		res.status(201).json({ success: true, message: 'Created a memory', song });
 	} catch (err) {
 		console.log(err);
 	}
